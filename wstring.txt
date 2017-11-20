@@ -1,0 +1,64 @@
+Object: wstring
+
+
+Constructor and Destructor
+==========================
+
+wstring WA(const char *s)
+	Create a new temporary string from a C multi byte string.
+	Created string that from this function will be deleted automatically after any member function call or used by new_wstring.
+
+wstring WW(const wchar_t *s)
+	Create a new temporary string from a UTF-16 wide char string.
+	Created string that from this function will be deleted automatically after any member function call or used by new_wstring.
+
+wstring new_wstring(wstring s)
+	Create a new string from another string s.
+	Created string that from this function need delete manually by calling delete_wstring.
+
+void delete_wstring(wstring s)
+	Destroy a string.
+
+
+Public Member Functions
+=======================
+
+void append(wstring s)
+	Append another string s to the tail of the current string.
+	This function will modify the current string.
+
+void insert(wstring s, int i)
+	Insert another string s to current string with index i.
+	This function will modify the current string.
+
+wchar_t at(int index)
+	Return the specified character at index in string.
+
+int compare(wstring s)
+	Compare current string with another string s.
+	See also strcmp, wcscmp in C.
+
+int find(wstring s)
+	Find string s from the current string; return -1 if not fount.
+
+int length()
+	Return the count of characters.
+
+wstring subString(int begin, int end)
+	...
+
+wbool startWith(wstring s)
+	Return true if current string are started with string s, or false if not.
+	See also endWith.
+
+wbool endWith(wstring s)
+	Return true if current string are ended with string s, or false if not.
+	See also startWith.
+
+const char *toAnsi()
+	Return a pointer that pointed to a C style string coded with ANSI (ASCII).
+	The returned pointer should use immediately; the pointed memory may modified by functions of this library calling.
+
+const wchar_t *toUtf16()
+	Return a pointer that pointed to a Windows C style wide char string coded with UTF-16.
+	The returned pointer should use immediately; the pointed memory may modified by functions of this library calling.

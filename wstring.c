@@ -182,6 +182,8 @@ _string *_M_constructBaseStruct()
 	inst->toAnsi    =  (const char*(*)())   rf_toAnsi;
 	inst->toUtf16   =  (const wchar_t*(*)())rf_toUtf16;
 
+
+
 	return inst;
 }
 
@@ -260,10 +262,10 @@ size_t _M_mbyteToWChar(const char* mbs, wchar_t**wcs)
     int minSize;
     //minSize = MultiByteToWideChar (CP_ACP, 0, mbs, -1, NULL, 0);
     minSize = mbstowcs(NULL,mbs,0) + 1;
-    printf("minsize: %d\n",minSize);
-    wchar_t *buf=malloc(minSize*sizeof(wchar_t));
+	//printf("minsize: %d\n",minSize);
+    wchar_t *buf=(wchar_t *)malloc(minSize*sizeof(wchar_t));
     mbstowcs(buf,mbs,minSize);
-    printf("ret:%ls\n",buf);
+    //printf("ret:%ls\n",buf);
     //MultiByteToWideChar (CP_ACP, 0, mbs, -1, buf, minSize);
     //printf("buf=%hx %hx\n",buf[0],buf[1]);
     *wcs=buf;
@@ -276,9 +278,9 @@ size_t _M_wcharToMByte(const wchar_t* wcs, char**mbs)
     //for(int i=0;*(wcs+i);i++);
     int minSize = (wcstombs(NULL,wcs,0) + 1);
     //minSize = WideCharToMultiByte(CP_ACP,0,wcs,-1,NULL,0,NULL,FALSE);
-    char buf=(char*)malloc(minSize);
+    char *buf=(char*)malloc(minSize);
     //WideCharToMultiByte (CP_ACP, 0, wcs, -1, *mbs, minSize, NULL, 0);
-    wcstombs(mbs,wcs,minSize);
+    wcstombs(buf,wcs,minSize);
     *mbs = buf;
     return minSize;
 }
@@ -333,7 +335,7 @@ int length(_string* self AFTER_SELF)
 
 wbool startWith(_string *self AFTER_SELF, wstring s)
 {
-    fprintf(stderr, "Function: startWith(%p, %p)\n", self, s);
+    //fprintf(stderr, "Function: startWith(%p, %p)\n", self, s);
 
 	_string *str = (_string *)s;
 	size_t len = str->_size/sizeof(wchar_t)-1;		// Cannot use length() here
@@ -426,7 +428,7 @@ wstring WA(const char *s)
 	wchar_t*wchar_buff;
 
 	s_size=_M_mbyteToWChar(s,&wchar_buff);
-    printf("WA:%ls\n",wchar_buff);
+    //printf("WA:%ls\n",wchar_buff);
 	_string* inst=_M_constructBaseStruct();
 	inst->_size=s_size;
 	inst->_buffer=wchar_buff;

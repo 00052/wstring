@@ -49,7 +49,7 @@ void* allocTmpMemory(int size)
 
 void setTmpBuffer(void*buf)
 {
-    printf("current=%d\n",tmpBuf_current);
+    //printf("current=%d\n",tmpBuf_current);
     free(tmpBuf_Table[tmpBuf_current]);
     tmpBuf_Table[tmpBuf_current]=buf;
     tmpBuf_current=(tmpBuf_current+1)%tmpBuf_count;
